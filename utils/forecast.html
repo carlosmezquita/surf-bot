@@ -1,0 +1,228 @@
+<html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+    body {
+        width: 1600px;
+        height: 1255px;
+        color: #f8f9fa;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 500px;
+        color: white;
+        font-family: 'Poppins', sans-serif;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    td {
+        font-size: 36px;
+        text-align: center;
+        padding: 5px;
+        border-bottom: 1px solid #f8f9fa;
+        height: 80px;
+        font-weight: 500;
+        /* text-shadow:
+            0px 0px 4px black; */
+    }
+
+    th {
+        font-size: 40px;
+        height: 30px;
+        border-bottom: 1px solid #f8f9fa;
+    }
+
+    #title {
+        font-size: 48px;
+        text-align: center;
+        padding: 20px;
+        background-color: #284B63;
+        position: relative;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .table-data-title {
+        width: 60px;
+        text-align: center;
+    }
+
+    .unidad {
+        font-size: 32px;
+        font-weight: normal;
+    }
+
+    svg {
+        transform: scale(2.5);
+        fill: #f8f9fa;
+    }
+</style>
+
+<body>
+    <div style="width: 1600px; height:1300px; background-color: #353535;">
+        <div>
+            <img id="mapImg" src="{{map}}"
+                style="width: 1600px; height: 600px ;object-fit: cover; position: fixed; margin-left: -8px;"
+                alt="Map" />
+            <h1 id="title">
+                {{name}}</h1>
+        </div>
+        <table>
+            <tr>
+                <th class="table-data-title">Time</th>
+                <th>08:00</th>
+                <th>10:00</th>
+                <th>12:00</th>
+                <th>14:00</th>
+                <th>16:00</th>
+                <th>18:00</th>
+                <th>20:00</th>
+                <th>22:00</th>
+            </tr>
+            <tr class="direction" id="swellDirection">
+                <th class="table-data-title">Swell Direction</span></th>
+
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[8].swellDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[10].swellDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[12].swellDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[14].swellDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[16].swellDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[18].swellDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[20].swellDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[22].swellDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+            </tr>
+            <tr id="waveSize">
+                <th class="table-data-title">Size<br><span class="unidad">(m)</span></th>
+                <td id="size-1">{{data.hours.[8].waveHeight.dwd}}</td>
+                <td id="size-2">{{data.hours.[10].waveHeight.dwd}}</td>
+                <td id="size-3">{{data.hours.[12].waveHeight.dwd}}</td>
+                <td id="size-4">{{data.hours.[14].waveHeight.dwd}}</td>
+                <td id="size-5">{{data.hours.[16].waveHeight.dwd}}</td>
+                <td id="size-6">{{data.hours.[18].waveHeight.dwd}}</td>
+                <td id="size-7">{{data.hours.[20].waveHeight.dwd}}</td>
+                <td id="size-8">{{data.hours.[22].waveHeight.dwd}}</td>
+            </tr>
+            <tr id="swellPeriod">
+                <th class="table-data-title">Period <br><span class="unidad">(s)</span></th>
+                <td>{{data.hours.[8].swellPeriod.dwd}}</td>
+                <td>{{data.hours.[10].swellPeriod.dwd}}</td>
+                <td>{{data.hours.[12].swellPeriod.dwd}}</td>
+                <td>{{data.hours.[14].swellPeriod.dwd}}</td>
+                <td>{{data.hours.[16].swellPeriod.dwd}}</td>
+                <td>{{data.hours.[18].swellPeriod.dwd}}</td>
+                <td>{{data.hours.[20].swellPeriod.dwd}}</td>
+                <td>{{data.hours.[22].swellPeriod.dwd}}</td>
+            </tr>
+            <!-- https://stackoverflow.com/questions/17525215/calculate-color-values-from-green-to-red -->
+            <tr class="direction" id="windDirection">
+                <th class="table-data-title">Wind Direction</span></th>
+
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[8].windDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[10].windDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[12].windDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[14].windDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[16].windDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[18].windDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[20].windDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+                <td><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <title>{{data.hours.[22].windDirection.sg}}</title>
+                        <path
+                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                    </svg></td>
+            </tr>
+            <tr id="windSpeed">
+                <th class="table-data-title">Wind <span class="unidad">(km/h)</span></th>
+                <td id="p4">{{windKmh.[8]}}</td>
+                <td id="p5">{{windKmh.[10]}}</td>
+                <td>{{windKmh.[12]}}</td>
+                <td>{{windKmh.[14]}}</td>
+                <td>{{windKmh.[16]}}</td>
+                <td>{{windKmh.[18]}}</td>
+                <td>{{windKmh.[20]}}</td>
+                <td>{{windKmh.[22]}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
