@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/dialogflow": "^4.7.0",
+    "chart.js": "^4.0.1",
+    "dotenv": "^16.0.3",
     "https": "^1.0.0",
     "node-cron": "^3.0.1",
     "node-fetch": "^2.6.7",
