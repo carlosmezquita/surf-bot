@@ -2,7 +2,7 @@ const qrcode = require("qrcode-terminal");
 const fs = require("fs");
 const { Client, LocalAuth, GroupNotificationTypes } = require('whatsapp-web.js');
 const intents = require('./dialogflow.js');
-
+require('dotenv').config()
 
 //#region Session
 
