@@ -19,18 +19,21 @@ module.exports = {
         // // Define to JSON type
         let spotsData = JSON.parse(contents);
         if (spotsData[spot]) {
+            msg.react("⏳")
             async function sendForecast(spot) {
                 await card.cardGenerator(spot);
                 let date = await card.getDate(spot);
                 let media = MessageMedia.fromFilePath(process.cwd() + `/data/spots/${spot}Card.jpeg`);
                 let webcamMsg = spotsData[spot].webcam ? "\n```Webcam: " + spotsData[spot].webcam + "```" : ``;
                 client.sendMessage(msg.from, media, { caption: `*${spotsData[spot].name}* _(${date})_${webcamMsg}` })
+                msg.react("")
             };
             sendForecast(spot)
         }
         else {
             client.sendMessage(msg.from, args + " no se encuentra registrado.")
             client.sendMessage(msg.from, "Escriba ```!spots``` para ver la lista de lugares.")
+            msg.react("")
         }
     },
 };
