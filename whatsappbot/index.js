@@ -1,6 +1,6 @@
 const qrcode = require("qrcode-terminal");
 const fs = require("fs");
-const { Client, LocalAuth, GroupNotificationTypes } = require('whatsapp-web.js');
+const { Client, LocalAuth } = require('whatsapp-web.js');
 const intents = require('./dialogflow.js');
 require('dotenv').config()
 
@@ -122,7 +122,7 @@ client.on("message", async (msg) => {
         );
     }
 
-    // if (!msg.body.startsWith(prefix) || msg.fromMe) return;
+    if ((!msg.body.startsWith(prefix) && chat.isGroup) || msg.fromMe) return;
 
     const args = msg.body.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
@@ -135,16 +135,21 @@ client.on("message", async (msg) => {
      */
     if (!msg.body.startsWith(prefix) && !chat.isGroup && msg.type == "chat") {
         let query = msg.body;
-        let response = await intents.executeQuery(msg.from, query);
-        const args = response.trim().split(/ +/);
-        const commandName = args.shift().toLowerCase();
-        let command = client.commands.get(commandName);
+        if (query.length <= 250) {
+            let response = await intents.executeQuery(msg.from, query);
+            const args = response.trim().split(/ +/);
+            const commandName = args.shift().toLowerCase();
+            let command = client.commands.get(commandName);
 
-        if (command) {
-            command.execute(client, msg, args, date);
+            if (command) {
+                command.execute(client, msg, args, date);
+            } else {
+                client.sendMessage(msg.from, response);
+            }
         } else {
-            client.sendMessage(msg.from, response);
+            msg.reply("El mensaje excede el límite. Por favor no envíes mensajes que superen los 250 caracteres.")
         }
+        return
     }
     // Si el comando no existe => finalizar
     if (!command) return;
