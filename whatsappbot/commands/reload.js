@@ -18,6 +18,11 @@ module.exports = {
 			delete require.cache[require.resolve(`./${command.name}`)];
 			const newCommand = require(`./${command.name}.js`);
 			msg.client.commands.set(newCommand.name, newCommand);
+			if (newCommand.aliases) {
+				newCommand.aliases.forEach((alias) => {
+					client.aliases.set(alias, command);
+				});
+			}
 			msg.reply(`Command ${newCommand.name} was reloaded!`);
 		} catch (error) {
 			console.error(error);
