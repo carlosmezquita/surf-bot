@@ -6,6 +6,9 @@ module.exports = {
 	args: true,
 	usage: "<command>",
 	execute(client, msg, args, date) {
+		if (!(msg.from == (process.env.ADMIN_USER_NUM + "@c.us") || msg.author == (process.env.ADMIN_USER_NUM + "@c.us"))) {
+			return msg.reply("You do not have permission to execute this command.")
+		};
 		const commandName = args[0].toLowerCase();
 		const command = client.commands.get(commandName)
 			|| client.aliases.get(commandName);
@@ -20,7 +23,7 @@ module.exports = {
 			msg.client.commands.set(newCommand.name, newCommand);
 			if (newCommand.aliases) {
 				newCommand.aliases.forEach((alias) => {
-					client.aliases.set(alias, command);
+					client.aliases.set(alias, newCommand);
 				});
 			}
 			msg.reply(`Command ${newCommand.name} was reloaded!`);
