@@ -77,7 +77,7 @@ cron.schedule("0 */30 * * *", () => {
 
 
 client.on("group_join", async (notification) => {
-    if (notification.type != "add" && notification.id.participant != client.info.wid._serialized) return;
+    if (notification.type != "add" || notification.id.participant != client.info.wid._serialized) return;
     client.sendMessage(
         notification.id.remote,
         "¡Hola!\nPara ver los comandos escribe !help \n \nhttps://herculwing.com",
@@ -117,7 +117,7 @@ client.on("message", async (msg) => {
     if ((await chat.fetchMessages()).length == 1 && chat.isGroup == false) {
         client.sendMessage(
             msg.from,
-            "¡Hola!\nPara ver los comandos escribe !help \n \nhttps://herculwing.com",
+            "¡Hola!\nPara ver los comandos escribe ```!help``` \n \nhttps://herculwing.com",
             { linkPreview: false }
         );
     }
