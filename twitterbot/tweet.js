@@ -12,8 +12,7 @@ async function forecast(spot) {
         let today = new Date();
         let date = today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
 
-        await card.cardGenerator(spot)
-        const picID = await client.v1.uploadMedia(process.cwd() + `/data/spots/${spot}Card.jpeg`);
+        const picID = await client.v1.uploadMedia(await card.checkImageDate(spot));
 
         // mediaIds is a string[], can be given to .tweet
         await client.v1.tweet(`📍 ${spotsData[spot].name}\n🗓️ ${date}`, { media_ids: picID });
