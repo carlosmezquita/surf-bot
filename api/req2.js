@@ -1,6 +1,7 @@
 var startTime, endTime;
 const path = require("path");
 const fetch = require("node-fetch");
+require('dotenv').config()
 
 function startTimer() {
   startTime = new Date();
@@ -36,6 +37,24 @@ const UTC = 1
 let contents = fs.readFileSync(process.cwd() + "/data/spots.json");
 // // Define to JSON type
 let spotsData = JSON.parse(contents);
+
+async function isDataUpdated(spot) {
+  if (!fs.existsSync(process.cwd() + `/data/spots/${spot}Data.json`)) { return false }
+  try {
+    const data = JSON.parse(fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`))
+    const fileDate = new Date(data.meta.end) / 1000;
+    const today = new Date()
+    const todayDate = new Date(today.getYear(), today.getMonth(), today.getDay()) / 1000;
+
+    if (todayDate > fileDate) {
+      return false
+    } else {
+      return true
+    }
+  } catch (e) {
+    fs.unlinkSync(process.cwd() + `/data/spots/${spot}Data.json`)
+  }
+}
 
 async function checkFile(spot) {
   let today = new Date();
@@ -85,5 +104,5 @@ async function dataRequest(spot) {
   return res
 }
 // dataRequest(`orzan`)
-module.exports = { dataRequest, checkFile };
+module.exports = { dataRequest, checkFile, isDataUpdated };
 endTimer()

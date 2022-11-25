@@ -17,8 +17,8 @@ const docMap = root.getElementById("mapImg")
 const waveScale = chroma.scale('Spectral').domain([6, 0]).gamma(3).mode('lab');
 const windScale = chroma.scale(['lightblue', 'yellow', 'navy']).mode('lch').domain([0, 120]).gamma(0.6);
 
-async function loadCard(spot) {
-    const data = JSON.parse(await loadData.checkFile(spot))
+async function loadCard(spot, weather) {
+    const data = JSON.parse(weather)
     const spotsData = JSON.parse(fs.readFileSync(process.cwd() + "/data/spots.json"));
 
     docSpotName.set_content(spotsData[spot].name)

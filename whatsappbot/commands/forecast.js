@@ -21,9 +21,9 @@ module.exports = {
         if (spotsData[spot]) {
             msg.react("⏳")
             async function sendForecast(spot) {
-                await card.cardGenerator(spot);
+                ;
                 let date = await card.getDate(spot);
-                let media = MessageMedia.fromFilePath(process.cwd() + `/data/spots/${spot}Card.jpeg`);
+                let media = MessageMedia.fromFilePath(await card.checkImageDate(spot));
                 let webcamMsg = spotsData[spot].webcam ? "\n```Webcam: " + spotsData[spot].webcam + "```" : ``;
                 client.sendMessage(msg.from, media, { caption: `*${spotsData[spot].name}* _(${date})_${webcamMsg}` })
                 msg.react("")
