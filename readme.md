@@ -9,7 +9,12 @@ It is scheduled to post a tweet every single morning at 8 am UTC+1 giving that d
 For WhatsApp has some extra functionalitys, including natural lenguage understanding. And a group of commands which different  functionalities.
 
 ## How to use?
-...
+Text Jonny, our whatsapp bot [+1 (475) 260-4383](https://wa.me/message/M2SHBIY4O6EXL1)
+
+
+<img src="https://user-images.githubusercontent.com/79549732/203752119-e354f4b0-d946-4c50-bba7-eef89cf04ae4.png" data-canonical-src="https://user-images.githubusercontent.com/79549732/203752119-e354f4b0-d946-4c50-bba7-eef89cf04ae4.png" width="200" />
+
+You can also follow us on Twitter [@HerculWing](https://twitter.com/HerculWing)
 
 ## Credits
 API Client used:
