@@ -8,7 +8,7 @@ const loadHTML = require("./htmlGenerator")
 async function getDate(spot) {
     const file = fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`);
     let data = JSON.parse(file)
-    let rawDate = new Date(data.meta.end)
+    let rawDate = new Date(data.meta.start)
     let date = rawDate.getDate() + '/' + (rawDate.getMonth() + 1) + '/' + rawDate.getFullYear();
     return date;
 }

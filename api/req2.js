@@ -42,13 +42,14 @@ async function isDataUpdated(spot) {
   if (!fs.existsSync(process.cwd() + `/data/spots/${spot}Data.json`)) { return false }
   try {
     const data = JSON.parse(fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`))
-    const fileDate = new Date(data.meta.end) / 1000;
+    const fileDate = new Date(data.meta.start) / 1000;
     const today = new Date()
     const todayDate = new Date(today.getYear(), today.getMonth(), today.getDay()) / 1000;
 
-    if (todayDate > fileDate) {
+    if ((todayDate - fileDate) > (22 * 3600)) {
       return false
     } else {
+      //actualizado
       return true
     }
   } catch (e) {
