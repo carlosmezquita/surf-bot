@@ -57,7 +57,7 @@ async function cardGenerator(spot, weather) {
     fs.writeFileSync(process.cwd() + `/data/forecastDate.json`, JSON.stringify(data, null, 4))
     return outputPath
 }
-checkImageDate("pantin")
+// checkImageDate("pantin")
 
 module.exports = { cardGenerator, getDate, checkImageDate };
 

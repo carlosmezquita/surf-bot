@@ -26,14 +26,15 @@ module.exports = {
                 let media = MessageMedia.fromFilePath(await card.checkImageDate(spot));
                 let webcamMsg = spotsData[spot].webcam ? "\n```Webcam: " + spotsData[spot].webcam + "```" : ``;
                 client.sendMessage(msg.from, media, { caption: `*${spotsData[spot].name}* _(${date})_${webcamMsg}` })
-                msg.react("")
+                setTimeout(function () {
+                    msg.react("")
+                }, 2500);
             };
             sendForecast(spot)
         }
         else {
             client.sendMessage(msg.from, args + " no se encuentra registrado.")
             client.sendMessage(msg.from, "Escriba ```!spots``` para ver la lista de lugares.")
-            msg.react("")
         }
     },
 };
