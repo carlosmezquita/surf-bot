@@ -15,25 +15,22 @@ async function getDate(spot) {
 
 async function checkImageDate(spot) {
     let file;
-    if (!req.isDataUpdated(spot) || !fs.existsSync(process.cwd() + `/data/spots/${spot}Card.jpeg`)) {
+    if (req.isDataUpdated(spot) === false || fs.existsSync(process.cwd() + `/data/spots/${spot}Card.jpeg`) === false) {
         const weatherData = await req.checkFile(spot)
         return cardGenerator(spot, weatherData)
     }
-    try {
-        file = fs.readFileSync(process.cwd() + `/data/forecastDate.json`)
-        data = JSON.parse(file)
-        const weatherData = fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`)
-        const todayDate = date.getDay()
-        if (data[spot] == undefined || new Date(data[spot].imgTime) < todayDate) {
-            return cardGenerator(spot, weatherData)
-        } else {
-            console.log("The image requested is updated: ", data[spot].imgTime)
-            return process.cwd() + `/data/spots/${spot}Card.jpeg`
-        }
-    } catch (err) {
-        console.error(err)
 
+    file = fs.readFileSync(process.cwd() + `/data/forecastDate.json`)
+    data = JSON.parse(file)
+    const weatherData = fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`)
+    const todayDate = date.getDay()
+    if (data[spot] == undefined || new Date(data[spot].imgTime) < todayDate) {
+        return cardGenerator(spot, weatherData)
+    } else {
+        console.log("The image requested is updated: ", data[spot].imgTime)
+        return process.cwd() + `/data/spots/${spot}Card.jpeg`
     }
+
 }
 
 

@@ -1,6 +1,7 @@
 var startTime, endTime;
 const path = require("path");
 const fetch = require("node-fetch");
+const date = require("../utils/date.js");
 require('dotenv').config()
 
 function startTimer() {
@@ -38,14 +39,16 @@ let contents = fs.readFileSync(process.cwd() + "/data/spots.json");
 // // Define to JSON type
 let spotsData = JSON.parse(contents);
 
-async function isDataUpdated(spot) {
+function isDataUpdated(spot) {
   if (!fs.existsSync(process.cwd() + `/data/spots/${spot}Data.json`)) { return false }
+  console.log("the file exist")
   try {
     const data = JSON.parse(fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`))
     const fileDate = new Date(data.meta.start) / 1000;
-    const today = new Date()
-    const todayDate = new Date(today.getYear(), today.getMonth(), today.getDay()) / 1000;
-
+    const todayDate = date.getToday() / 1000;
+    console.log("File Date:", fileDate)
+    console.log("Today date", todayDate)
+    console.log("Calc: ", (todayDate - fileDate), " >", (22 * 3600))
     if ((todayDate - fileDate) > (22 * 3600)) {
       return false
     } else {
