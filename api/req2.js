@@ -42,21 +42,14 @@ let spotsData = JSON.parse(contents);
 function isDataUpdated(spot) {
   if (!fs.existsSync(process.cwd() + `/data/spots/${spot}Data.json`)) { return false }
   console.log("the file exist")
-  try {
-    const data = JSON.parse(fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`))
-    const fileDate = new Date(data.meta.start) / 1000;
-    const todayDate = date.getToday() / 1000;
-    console.log("File Date:", fileDate)
-    console.log("Today date", todayDate)
-    console.log("Calc: ", (todayDate - fileDate), " >", (22 * 3600))
-    if ((todayDate - fileDate) > (22 * 3600)) {
-      return false
-    } else {
-      //actualizado
-      return true
-    }
-  } catch (e) {
-    fs.unlinkSync(process.cwd() + `/data/spots/${spot}Data.json`)
+  const data = JSON.parse(fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`))
+  const fileDate = new Date(data.meta.start) / 1000;
+  const todayDate = date.getDay() / 1000;
+  if ((todayDate - fileDate) > (22 * 3600)) {
+    return false
+  } else {
+    //actualizado
+    return true
   }
 }
 
