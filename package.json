@@ -11,14 +11,18 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/dialogflow": "^4.7.0",
+    "chroma-js": "^2.4.2",
+    "dotenv": "^16.0.3",
     "https": "^1.0.0",
     "node-cron": "^3.0.1",
     "node-fetch": "^2.6.7",
+    "node-html-parser": "^6.1.4",
     "node-html-to-image": "^3.2.4",
     "qrcode-terminal": "^0.12.0",
     "twitter-api-v2": "^1.12.2",
     "uuid": "^8.3.2",
     "whatsapp-web.js": "^1.16.6",
+    "winston": "^3.8.2",
     "xml2js": "^0.4.23"
   }
 }
