@@ -16,11 +16,12 @@ module.exports = createLogger({
             filename: `${__dirname}/../logs/activity.log`,
             handleExceptions: true,
             handleRejections: true,
+            level: 'debug',
         }),
         new transports.Console({
             handleExceptions: true,
             handleRejections: true,
-            level: 'debug',
+            level: 'info',
             format: format.combine(
                 format.colorize(),
                 myFormat,
