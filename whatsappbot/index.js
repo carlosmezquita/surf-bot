@@ -5,6 +5,8 @@ const intents = require('./dialogflow.js');
 require('dotenv').config()
 const logger = require('../utils/logger.js')
 
+
+logger.exceptions.handle()
 //#region Session
 
 console.clear();

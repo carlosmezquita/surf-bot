@@ -11,8 +11,12 @@ module.exports = createLogger({
             maxSize: 5 * 1024000,
             maxFiles: 5,
             filename: `${__dirname}/../logs/activity.log`,
+            handleExceptions: true,
+            handleRejections: true,
         }),
         new transports.Console({
+            handleExceptions: true,
+            handleRejections: true,
             level: 'debug',
         })
     ]
