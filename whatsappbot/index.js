@@ -131,7 +131,7 @@ client.on("message", async (msg) => {
     const command =
         client.commands.get(commandName) || client.aliases.get(commandName);
 
-    logger.info(`${msg.author} -> ${msg.body}`)
+    logger.info(`${msg.author || msg.from} -> ${msg.body}`)
 
     /**
      * Conversaciones individuales con la integración de DialogFlow

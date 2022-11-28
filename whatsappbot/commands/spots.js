@@ -7,7 +7,7 @@ module.exports = {
 		let contents = fs.readFileSync(process.cwd() + "/data/spots.json");
 		// // Define to JSON type
 		let spotsData = JSON.parse(contents);
-		console.log(Object.keys(spotsData))
+		// console.log(Object.keys(spotsData))
 		let text = "";
 		for (let x in spotsData) {
 			text += `\n - ${spotsData[x].name}\n`;
