@@ -1,11 +1,14 @@
 const { createLogger, format, transports } = require('winston');
 
+
+const myFormat = format.combine(
+    format.timestamp({ format: "DD/MM/YYYY HH:mm:ss" }),
+    format.errors({ stack: true }),
+    format.printf(info => `[${info.timestamp}] ${info.level}: ${info.message || info.stack}`),
+)
+
 module.exports = createLogger({
-    format: format.combine(
-        format.colorize(),
-        format.timestamp({ format: "DD/MM/YYYY HH:mm:ss" }),
-        format.errors({ stack: true }),
-        format.printf(info => `[${info.timestamp}] ${info.level}: ${info.message || info.stack}`)),
+    format: myFormat,
     transports: [
         new transports.File({
             maxSize: 5 * 1024000,
@@ -18,6 +21,10 @@ module.exports = createLogger({
             handleExceptions: true,
             handleRejections: true,
             level: 'debug',
+            format: format.combine(
+                format.colorize(),
+                myFormat,
+            ),
         })
     ]
 })
