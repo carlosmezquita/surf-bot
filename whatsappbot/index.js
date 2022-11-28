@@ -3,6 +3,7 @@ const fs = require("fs");
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const intents = require('./dialogflow.js');
 require('dotenv').config()
+const logger = require('../utils/logger.js')
 
 //#region Session
 
@@ -27,20 +28,20 @@ client.on('qr', (qr) => {
     // NOTE: This event will not be fired if a session is specified.
     qrcode.generate(qr, { small: true });
 
-    console.log('QR RECEIVED', qr);
+    logger.info(`QR RECEIVED ${qr}`);
 });
 
 client.on('authenticated', () => {
-    console.log('AUTHENTICATED');
+    logger.info('AUTHENTICATED');
 });
 
 client.on('auth_failure', msg => {
     // Fired if session restore was unsuccessfull
-    console.error('AUTHENTICATION FAILURE', msg);
+    logger.error(`AUTHENTICATION FAILURE ${msg}`);
 });
 
 client.on('ready', () => {
-    console.log('READY');
+    logger.info('CLIENT READY');
 });
 //#endregion Session
 
@@ -52,7 +53,7 @@ cron.schedule(
     "0 0 * * *",
     () => {
         const loadData = require("../api/request");
-        console.log("Loading today's data");
+        // console.log("Loading today's data");
         loadData.dataRequest();
         client.destroy();
         client.initialize();
@@ -60,7 +61,7 @@ cron.schedule(
 
         let date =
             today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
-        console.log(date);
+        // console.log(date);
 
     },
     {
@@ -70,7 +71,7 @@ cron.schedule(
 );
 cron.schedule("0 */30 * * *", () => {
     let time = new Date().toLocaleTimeString();
-    console.log(time);
+    // console.log(time);
 });
 
 //#endregion Date
@@ -78,6 +79,7 @@ cron.schedule("0 */30 * * *", () => {
 
 client.on("group_join", async (notification) => {
     if (notification.type != "add" || notification.id.participant != client.info.wid._serialized) return;
+    logger.info(`${notification.author} added our client to ${(await notification.getChat()).name}`)
     client.sendMessage(
         notification.id.remote,
         "¡Hola!\nPara ver los comandos escribe !help \n \nhttps://herculwing.com",
@@ -105,16 +107,13 @@ for (const file of commandFiles) {
 }
 
 client.on("message", async (msg) => {
-    console.groupCollapsed("\x1b[33m", "MESSAGE RECEIVED");
-    console.log("From:", msg.from, "-->", msg.body);
-    // console.log(msg)
-    console.groupEnd();
 
     const chat = msg.isStatus ? "status" : await msg.getChat();
     /**
      * Mensaje de bienvenida
      */
     if ((await chat.fetchMessages()).length == 1 && chat.isGroup == false) {
+        logger.info(`Welcome message send to ${msg.author}`)
         client.sendMessage(
             msg.from,
             "¡Hola!\nPara ver los comandos escribe ```!help``` \n \nhttps://herculwing.com",
@@ -130,6 +129,8 @@ client.on("message", async (msg) => {
     const command =
         client.commands.get(commandName) || client.aliases.get(commandName);
 
+    logger.info(`${msg.author} -> ${msg.body}`)
+
     /**
      * Conversaciones individuales con la integración de DialogFlow
      */
@@ -140,7 +141,6 @@ client.on("message", async (msg) => {
             const args = response.trim().split(/ +/);
             const commandName = args.shift().toLowerCase();
             let command = client.commands.get(commandName);
-
             if (command) {
                 command.execute(client, msg, args, date);
             } else {
@@ -172,7 +172,7 @@ client.on("message", async (msg) => {
     try {
         command.execute(client, msg, args, date);
     } catch (error) {
-        console.error(error);
+        logger.error(`An error happened executing a command ${error}`)
         msg.reply(
             "Lo sentimos, se ha producido un error.\nVuelva a intentarlo más tarde."
         );

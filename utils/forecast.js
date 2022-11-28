@@ -3,7 +3,8 @@ const fs = require('fs');
 const date = require('./date')
 const req = require('../api/req2')
 
-const loadHTML = require("./htmlGenerator")
+const loadHTML = require("./htmlGenerator");
+const logger = require('./logger');
 
 async function getDate(spot) {
     const file = fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`);
@@ -27,7 +28,7 @@ async function checkImageDate(spot) {
     if (data[spot] == undefined || new Date(data[spot].imgTime) < todayDate) {
         return cardGenerator(spot, weatherData)
     } else {
-        console.log("The image requested is updated: ", data[spot].imgTime)
+        logger.debug(`The image for ${spot} is updated as ${data[spot].imgTime}`)
         return process.cwd() + `/data/spots/${spot}Card.jpeg`
     }
 
@@ -43,13 +44,12 @@ async function cardGenerator(spot, weather) {
     })
 
         .then(() => {
-            console.log('The image was created successfully!')
+            logger.info(`Image succesfully created for ${spot}`)
 
         })
 
     file = fs.readFileSync(process.cwd() + `/data/forecastDate.json`)
     data = JSON.parse(file)
-    console.log(date.getDay().toJSON())
     data[spot] = { imgTime: todayDate.toJSON() }
     fs.writeFileSync(process.cwd() + `/data/forecastDate.json`, JSON.stringify(data, null, 4))
     return outputPath

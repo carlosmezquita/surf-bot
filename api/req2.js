@@ -28,6 +28,7 @@ const fs = require('fs');
 const params = 'waveHeight,swellPeriod,swellDirection,windDirection,windSpeed';
 const https = require('https');
 const xml2js = require('xml2js');
+const logger = require("../utils/logger.js");
 const parser = new xml2js.Parser({ attrkey: "ATTR" });
 const UTC = 1
 
@@ -41,14 +42,15 @@ let spotsData = JSON.parse(contents);
 
 function isDataUpdated(spot) {
   if (!fs.existsSync(process.cwd() + `/data/spots/${spot}Data.json`)) { return false }
-  console.log("the file exist")
+  logger.debug(`${spot} data file exists`)
   const data = JSON.parse(fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`))
   const fileDate = new Date(data.meta.start) / 1000;
   const todayDate = date.getDay() / 1000;
   if ((todayDate - fileDate) > (22 * 3600)) {
+    logger.debug(`${spot} data isn't updated`)
     return false
   } else {
-    //actualizado
+    logger.debug(`${spot} data is updated`)
     return true
   }
 }
@@ -60,20 +62,20 @@ async function checkFile(spot) {
     const content = fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`)
     const data = JSON.parse(content)
     let fileDate = new Date(data.meta.end) / 1000
-    console.log(fileDate)
+    // console.log(fileDate)
     let nowDate = new Date(date) / 1000
-    console.log(nowDate)
+    // console.log(nowDate)
     if (fileDate >= nowDate) {
-      console.log(`Archivo actualizado`)
+      logger.debug(`${spot} updated`)
       return content
     }
     else {
-      console.log(`Archivo desactualizado`)
+      logger.debug(`${spot} isn't updated`)
       return dataRequest(spot)
     }
   }
   else {
-    console.log(`El archivo no existe`)
+    logger.debug(`${spot} does not exist`)
     return dataRequest(spot)
   }
 }
@@ -96,7 +98,7 @@ async function dataRequest(spot) {
 
     // console.log(data)
   }).then(() => {
-    console.log("Wave and wind data downloaded succesfully")
+    logger.info(`Wave and wind data downloaded successfully for ${spot}`)
   })
   return res
 }
