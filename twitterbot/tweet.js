@@ -24,4 +24,4 @@ async function forecast(spot) {
     }
 }
 module.exports = { forecast };
-forecast("orzan");
+// forecast("malpica");
