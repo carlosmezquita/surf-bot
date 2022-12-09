@@ -9,8 +9,7 @@ async function forecast(spot) {
         // // Define to JSON type
         const spotsData = JSON.parse(contents);
 
-        let today = new Date();
-        let date = today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
+        let date = await card.getDate(spot);
 
         const imgPath = await card.checkImageDate(spot)
         const picID = await client.v1.uploadMedia(imgPath);

@@ -6,10 +6,13 @@ const req = require('../api/req2')
 const loadHTML = require("./htmlGenerator");
 const logger = require('./logger');
 
+const todayDate = date.getDay()
+
+
 async function getDate(spot) {
     const file = fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`);
     let data = JSON.parse(file)
-    let rawDate = new Date(data.meta.start)
+    let rawDate = new Date(data.meta.end)
     let date = rawDate.getDate() + '/' + (rawDate.getMonth() + 1) + '/' + rawDate.getFullYear();
     return date;
 }
@@ -26,6 +29,7 @@ async function checkImageDate(spot) {
     const weatherData = fs.readFileSync(process.cwd() + `/data/spots/${spot}Data.json`)
     const todayDate = date.getDay()
     if (data[spot] == undefined || new Date(data[spot].imgTime) < todayDate) {
+
         return cardGenerator(spot, weatherData)
     } else {
         logger.debug(`The image for ${spot} is updated as ${data[spot].imgTime}`)
@@ -37,6 +41,7 @@ async function checkImageDate(spot) {
 
 async function cardGenerator(spot, weather) {
     const outputPath = process.cwd() + `/data/spots/${spot}Card.jpeg`
+    logger.debug(`Creating new image for ${spot}`)
     await nodeHtmlToImage({
         output: outputPath,
         html: await loadHTML.loadCard(spot, weather)
@@ -54,7 +59,7 @@ async function cardGenerator(spot, weather) {
     fs.writeFileSync(process.cwd() + `/data/forecastDate.json`, JSON.stringify(data, null, 4))
     return outputPath
 }
-// checkImageDate("pantin")
+checkImageDate("orzan")
 
 module.exports = { cardGenerator, getDate, checkImageDate };
 
