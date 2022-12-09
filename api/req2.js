@@ -82,9 +82,7 @@ async function checkFile(spot) {
 async function dataRequest(spot) {
   let today = new Date();
   let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-  console.log(date);
   let start = ((new Date(date) / 1000))
-  console.log(start)
   let end = start + 86400
   let lat = spotsData[spot].latitude
   let lng = spotsData[spot].longitude
